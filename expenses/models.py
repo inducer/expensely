@@ -92,7 +92,7 @@ class EntryComment(models.Model):
     create_date = models.DateTimeField(default=datetime.now)
     creator = models.ForeignKey(User)
 
-    comments = models.TextField(null=True, blank=True)
+    comment = models.TextField()
 
 
 class EntryValidation(models.Model):

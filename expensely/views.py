@@ -16,6 +16,8 @@ class AuthenticationForm(AuthenticationFormBase):
                 Submit("submit", "Sign in", css_class="col-lg-offset-2"))
         super(AuthenticationForm, self).__init__(*args, **kwargs)
 
+        self.fields['username'].widget.attrs["autofocus"] = "autofocus"
+
 
 def login(request):
     from django.contrib.auth.views import login
