@@ -16,12 +16,21 @@ from django.conf.global_settings import TEMPLATE_CONTEXT_PROCESSORS
 import os
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
+local_settings = {}
+try:
+    with open(join(BASE_DIR, "local_settings.py")) as inf:
+        local_settings_contents = inf.read()
+except IOError:
+    pass
+else:
+    exec(compile(local_settings_contents, "local_settings.py", "exec"),
+            local_settings)
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.6/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '%#rh4+k2x$6nsga@*qv^=mhz^%fr^swb=yr7x0_rmnpz0%3+^_'
+SECRET_KEY = '<OVERRIDDEN BY local_settings below>'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -76,6 +85,7 @@ WSGI_APPLICATION = 'expensely.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.6/ref/settings/#databases
 
+# default, likely overriden by local_settings below
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -103,6 +113,14 @@ USE_TZ = True
 DYNSITE_ROOT = "/expensely/"
 
 STATIC_URL = DYNSITE_ROOT + "static/"
+STATIC_ROOT = join(BASE_DIR, "static")
 
 LOGIN_URL = DYNSITE_ROOT + "accounts/login"
 LOGIN_REDIRECT_URL = DYNSITE_ROOT
+
+SESSION_COOKIE_NAME = 'expensely_sessionid'
+SESSION_COOKIE_AGE = 12096000 # 20 weeks
+
+for name, val in local_settings.iteritems():
+    if not name.startswith("_"):
+        globals()[name] = val

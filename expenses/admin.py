@@ -7,7 +7,13 @@ from expenses.models import (
 
 admin.site.register(Currency)
 admin.site.register(AccountGroup)
-admin.site.register(Account)
+
+class AccountAdmin(admin.ModelAdmin):
+    list_filter = ('group', 'currency', 'category')
+    list_display = ('symbol', 'name', 'group', 'currency', 'category')
+
+
+admin.site.register(Account, AccountAdmin)
 
 admin.site.register(EntryCategory)
 
@@ -23,6 +29,7 @@ class EntryCommentInline(admin.TabularInline):
 
 
 class EntryAdmin(admin.ModelAdmin):
+    list_display = ('description', 'valid_date', 'creator', 'category')
     inlines = [
             EntryComponentInline,
             EntryCommentInline]

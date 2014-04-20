@@ -1,8 +1,8 @@
 SECRET_KEY = '<CHANGE ME>'
 
-# ALLOWED_HOSTS = [
-#         "codery.cbigman.net",
-#         ]
+ALLOWED_HOSTS = [
+        "expensely.example.com",
+        ]
 
 DATABASES = {
     'default': {

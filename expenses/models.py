@@ -51,6 +51,9 @@ class Account(models.Model):
     def __unicode__(self):
         return self.symbol + " -- " + self.name
 
+    class Meta:
+        ordering = ["symbol"]
+
 
 class EntryCategory(models.Model):
     name = models.CharField(max_length=200)
@@ -74,6 +77,7 @@ class Entry(models.Model):
 
     class Meta:
         verbose_name_plural = "entries"
+        ordering = ["valid_date", "description"]
 
     def __unicode__(self):
         return "%s (%s)" % (
@@ -85,6 +89,9 @@ class EntryComponent(models.Model):
     entry = models.ForeignKey(Entry, related_name="entries")
     account = models.ForeignKey(Account)
     amount = models.DecimalField(max_digits=19, decimal_places=2)
+
+    class Meta:
+        ordering = ["amount"]
 
 
 class EntryComment(models.Model):
