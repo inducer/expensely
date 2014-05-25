@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
-from datetime import datetime
+from django.utils.timezone import now
+
 
 
 class Currency(models.Model):
@@ -54,6 +55,17 @@ class Account(models.Model):
     class Meta:
         ordering = ["symbol"]
 
+    def balance(self):
+        from decimal import Decimal
+
+        TWO_PLACES = Decimal(10) ** -2
+
+        result = Decimal(0)
+        for ec in self.entry_components.all():
+            result += ec.amount
+
+        return result.quantize(TWO_PLACES)
+
 
 class EntryCategory(models.Model):
     name = models.CharField(max_length=200)
@@ -66,11 +78,11 @@ class EntryCategory(models.Model):
 
 
 class Entry(models.Model):
-    valid_date = models.DateField(default=datetime.now)
+    valid_date = models.DateField(default=now)
 
     description = models.CharField(max_length=200)
 
-    create_date = models.DateTimeField(default=datetime.now)
+    create_date = models.DateTimeField(default=now)
     creator = models.ForeignKey(User)
 
     category = models.ForeignKey(EntryCategory)
@@ -86,8 +98,9 @@ class Entry(models.Model):
 
 
 class EntryComponent(models.Model):
-    entry = models.ForeignKey(Entry, related_name="entries")
-    account = models.ForeignKey(Account)
+    entry = models.ForeignKey(Entry, related_name="components")
+    account = models.ForeignKey(Account,
+            related_name="entry_components")
     amount = models.DecimalField(max_digits=19, decimal_places=2)
 
     class Meta:
@@ -96,7 +109,7 @@ class EntryComponent(models.Model):
 
 class EntryComment(models.Model):
     entry = models.ForeignKey(Entry)
-    create_date = models.DateTimeField(default=datetime.now)
+    create_date = models.DateTimeField(default=now)
     creator = models.ForeignKey(User)
 
     comment = models.TextField()
@@ -104,7 +117,7 @@ class EntryComment(models.Model):
 
 class EntryValidation(models.Model):
     entry_component = models.ForeignKey(EntryComponent)
-    create_date = models.DateTimeField(default=datetime.now)
+    create_date = models.DateTimeField(default=now)
     validator = models.ForeignKey(User)
 
     comments = models.TextField(null=True, blank=True)

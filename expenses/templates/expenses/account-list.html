@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h2>List of Accounts</h2>
+  <table class="account-list">
+    <tr>
+      <th>Symbol</th>
+      <th>Name</th>
+      <th>Group</th>
+      <th>Currency</th>
+      <th>Balance</th>
+    </tr>
+    {% for account in accounts %}
+      <tr>
+        <td>{{account.symbol}}</td>
+        <td><a href="{{dynsite_root}}reporting/account/{{account.id}}">{{account.name}}</a></td>
+        <td>{{account.group.name}}</td>
+        <td>{{account.currency.symbol}}</td>
+        <td class="amount">{{account.balance|floatformat:2}}</td>
+      </tr>
+    {% endfor %}
+  </table>
+{% endblock %}

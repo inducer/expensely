@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>{{account.symbol}}: {{account.name}}</h2>
+  <table class="account-list">
+    <tr>
+      <th>Date</th>
+      <th>Description</th>
+      <th>Currency</th>
+      <th>Amount</th>
+      <th>Balance</td>
+    </tr>
+    {% for tx, balance in transactions %}
+      <tr class="{% cycle 'evenrow' 'oddrow' %}">
+        <td>{{tx.entry.valid_date}}</td>
+        <td>{{tx.entry.description}}</td>
+        <td>{{account.currency.symbol}}</td>
+        <td class="amount">{{tx.amount|floatformat:2}}</td>
+        <td class="amount">{{balance|floatformat:2}}</td>
+      </tr>
+    {% endfor %}
+  </table>
+{% endblock %}

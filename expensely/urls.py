@@ -20,6 +20,10 @@ urlpatterns = patterns('',
 
     (urlb+r'tracking/add-simple-expense/$', 'expenses.views.add_simple_expense',),
 
+    (urlb+r'reporting/accounts/$', 'expenses.views.list_accounts',),
+    (urlb+r'reporting/account/(?P<id>[0-9]+)$',
+        'expenses.views.view_account',),
+
     (urlb+r'accounts/login/$', 'expensely.views.login',),
     (urlb+r'accounts/logout/$',
         'django.contrib.auth.views.logout',

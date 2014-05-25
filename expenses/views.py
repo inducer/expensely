@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.decorators import (
         login_required)
 
@@ -65,7 +65,6 @@ def add_simple_expense(request):
     if request.method == "POST":
         form = AddSimpleExpenseForm(request.POST, request.FILES)
         if form.is_valid():
-            # TODO: Process data
             entry = Entry(
                     valid_date=form.cleaned_data["valid_date"],
                     description=form.cleaned_data["description"],
@@ -80,14 +79,16 @@ def add_simple_expense(request):
                     )
             funding.save()
 
-            total_fraction = (
-                    form.cleaned_data["fraction_1"]
-                    + form.cleaned_data["fraction_2"])
+            from decimal import Decimal
 
-            amount_1 = (
-                    form.cleaned_data["amount"] * form.cleaned_data["fraction_1"]
-                    / total_fraction)
-            amount_2 = form.cleaned_data["amount"] - amount_1
+            TWO_PLACES = Decimal(10) ** -2
+            frac1 = Decimal(form.cleaned_data["fraction_1"])
+            frac2 = Decimal(form.cleaned_data["fraction_1"])
+
+            total_fraction = frac1 + frac2
+            total_amount = Decimal(form.cleaned_data["amount"]).quantize(TWO_PLACES)
+            amount_1 = (total_amount * frac1 / total_fraction).quantize(TWO_PLACES)
+            amount_2 = total_amount - amount_1
 
             if amount_1:
                 target_1 = EntryComponent(
@@ -121,4 +122,34 @@ def add_simple_expense(request):
     return render(request, 'generic-form.html', {
         "form": form,
         "form_description": "Add Simple Expense",
+    })
+
+
+@login_required
+def list_accounts(request):
+    return render(request, 'expenses/account-list.html', {
+        "accounts": Account.objects.all()
+        .order_by("group__name", "symbol"),
+    })
+
+
+@login_required
+def view_account(request, id):
+    account = get_object_or_404(Account, pk=id)
+
+    from decimal import Decimal
+    TWO_PLACES = Decimal(10) ** -2
+
+    def gen_tallies():
+        tally = Decimal(0)
+        for tx in (account.entry_components
+                .order_by("entry__valid_date").all()):
+            tally += Decimal(tx.amount)
+            tally = tally.quantize(TWO_PLACES)
+
+            yield (tx, tally)
+
+    return render(request, 'expenses/account-view.html', {
+        "account": account,
+        "transactions": gen_tallies()
     })
