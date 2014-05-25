@@ -106,6 +106,10 @@ class EntryComponent(models.Model):
     class Meta:
         ordering = ["amount"]
 
+    def __unicode__(self):
+        return u"Component %.2f on %s:%s" % (self.amount,
+                self.account.symbol, self.account.name)
+
 
 class EntryComment(models.Model):
     entry = models.ForeignKey(Entry)
