@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 
+{% load admin_urls %}
+
 {% block content %}
 <h2>{{account.symbol}}: {{account.name}}</h2>
   <table class="account-list">
@@ -13,7 +15,7 @@
     {% for tx, balance in transactions %}
       <tr class="{% cycle 'evenrow' 'oddrow' %}">
         <td>{{tx.entry.valid_date}}</td>
-        <td>{{tx.entry.description}}</td>
+        <td><a href="{% url 'admin:expenses_entry_change' tx.entry.id %}">{{tx.entry.description}}</a></td>
         <td>{{account.currency.symbol}}</td>
         <td class="amount">{{tx.amount|floatformat:2}}</td>
         <td class="amount">{{balance|floatformat:2}}</td>
