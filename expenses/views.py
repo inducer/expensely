@@ -83,7 +83,7 @@ def add_simple_expense(request):
 
             TWO_PLACES = Decimal(10) ** -2
             frac1 = Decimal(form.cleaned_data["fraction_1"])
-            frac2 = Decimal(form.cleaned_data["fraction_1"])
+            frac2 = Decimal(form.cleaned_data["fraction_2"])
 
             total_fraction = frac1 + frac2
             total_amount = Decimal(form.cleaned_data["amount"]).quantize(TWO_PLACES)
