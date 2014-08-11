@@ -1,6 +1,5 @@
 from django.shortcuts import render, get_object_or_404
-from django.contrib.auth.decorators import (
-        login_required)
+from django.contrib.auth.decorators import login_required
 
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit
@@ -23,24 +22,25 @@ class AddSimpleExpenseForm(forms.ModelForm):
     funding_source = forms.ModelChoiceField(
             queryset=Account.objects.filter(
                 category=account_category.funding_source),
-                required=True)
+            required=True)
     amount = forms.DecimalField(max_digits=19, decimal_places=2, required=True)
+    discount_in_percent = forms.DecimalField(max_digits=19, decimal_places=2)
     funding_source = forms.ModelChoiceField(
             queryset=Account.objects.filter(
                 category=account_category.funding_source),
-                required=True)
+            required=True)
 
     fraction_1 = forms.IntegerField(required=True, initial=50)
     target_1 = forms.ModelChoiceField(
             queryset=Account.objects.filter(
                 category=account_category.expenses),
-                required=True)
+            required=True)
 
     fraction_2 = forms.IntegerField(required=True, initial=50)
     target_2 = forms.ModelChoiceField(
             queryset=Account.objects.filter(
                 category=account_category.expenses),
-                required=True)
+            required=True)
 
     comment = forms.CharField(required=False, widget=forms.widgets.Textarea)
 
@@ -72,12 +72,6 @@ def add_simple_expense(request):
                     creator=request.user,
                     )
             entry.save()
-            funding = EntryComponent(
-                    entry=entry,
-                    account=form.cleaned_data["funding_source"],
-                    amount=-form.cleaned_data["amount"],
-                    )
-            funding.save()
 
             from decimal import Decimal
 
@@ -86,10 +80,29 @@ def add_simple_expense(request):
             frac2 = Decimal(form.cleaned_data["fraction_2"])
 
             total_fraction = frac1 + frac2
-            total_amount = Decimal(form.cleaned_data["amount"]).quantize(TWO_PLACES)
-            amount_1 = (total_amount * frac1 / total_fraction).quantize(TWO_PLACES)
-            amount_2 = total_amount - amount_1
+            total_amount = Decimal(form.cleaned_data["amount"])
 
+            discount_percent = form.cleaned_data["discount_in_percent"]
+            if discount_percent:
+                discounted_amount = \
+                        total_amount * Decimal(1-float(discount_percent)*0.01)
+            else:
+                discounted_amount = total_amount
+
+            total_amount = total_amount.quantize(TWO_PLACES)
+            discounted_amount = Decimal(discounted_amount).quantize(TWO_PLACES)
+            discount_amount = total_amount - discounted_amount
+
+            amount_1 = \
+                    (discounted_amount * frac1 / total_fraction).quantize(TWO_PLACES)
+            amount_2 = discounted_amount - amount_1
+
+            funding = EntryComponent(
+                    entry=entry,
+                    account=form.cleaned_data["funding_source"],
+                    amount=-discounted_amount,
+                    )
+            funding.save()
             if amount_1:
                 target_1 = EntryComponent(
                         entry=entry,
@@ -105,6 +118,15 @@ def add_simple_expense(request):
                         amount=amount_2,
                         )
                 target_2.save()
+
+            if discount_percent:
+                comment = EntryComment(
+                        entry=entry,
+                        creator=request.user,
+                        comment="%.2f%% discount (%s) taken off %s."
+                        % (discount_percent, discount_amount, total_amount)
+                        )
+                comment.save()
 
             if form.cleaned_data["comment"]:
                 comment = EntryComment(
