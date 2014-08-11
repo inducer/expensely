@@ -24,7 +24,8 @@ class AddSimpleExpenseForm(forms.ModelForm):
                 category=account_category.funding_source),
             required=True)
     amount = forms.DecimalField(max_digits=19, decimal_places=2, required=True)
-    discount_in_percent = forms.DecimalField(max_digits=19, decimal_places=2)
+    discount_in_percent = forms.DecimalField(max_digits=19, decimal_places=2,
+            required=False)
     funding_source = forms.ModelChoiceField(
             queryset=Account.objects.filter(
                 category=account_category.funding_source),
