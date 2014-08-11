@@ -1,0 +1,11 @@
+# Django>=1.7 once released
+https://www.djangoproject.com/download/1.7c1/tarball/
+
+# Automatically renders Django forms in a pretty, Bootstrap-compatible way.
+django-crispy-forms>=1.4.0
+
+# Django timezone support
+pytz
+
+# A date picker widget
+django-bootstrap3-datetimepicker
