@@ -14,11 +14,16 @@
 
     <link href="{{dynsite_root}}static/css/style.css" rel="stylesheet">
 
+    {# scripts have to be up here because the datepicker's JS needs them to run #}
+    <script src="{{dynsite_root}}static/js/jquery-1.11.0.js"></script>
+    <script src="{{dynsite_root}}static/bootstrap-3.1.1-dist/js/bootstrap.min.js"></script>
+
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+    {{ form.media }}
   </head>
 
   <body>
@@ -79,12 +84,6 @@
       {% endblock %}
 
     </div>
-
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="{{dynsite_root}}static/js/jquery-1.11.0.js"></script>
-    <script src="{{dynsite_root}}static/bootstrap-3.1.1-dist/js/bootstrap.min.js"></script>
   </body>
 </html>
 

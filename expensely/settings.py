@@ -51,6 +51,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'expenses',
     'crispy_forms',
+    "bootstrap3_datetime",
 )
 
 TEMPLATE_CONTEXT_PROCESSORS = (

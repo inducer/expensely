@@ -13,11 +13,20 @@ from expenses.models import (  # noqa
         Account, Entry, EntryComponent, EntryCategory, EntryComment,
         account_category)
 
+from bootstrap3_datetime.widgets import DateTimePicker
+
 
 class AddSimpleExpenseForm(forms.ModelForm):
     class Meta:
         model = Entry
         fields = ['valid_date', 'description', 'category']
+
+        widgets = {
+                "valid_date": DateTimePicker(options={
+                    "format": "YYYY-MM-DD",
+                    "pickTime": False,
+                    })
+                }
 
     funding_source = forms.ModelChoiceField(
             queryset=Account.objects.filter(
