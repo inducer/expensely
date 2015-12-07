@@ -7,4 +7,4 @@ django-crispy-forms>=1.5.0
 pytz
 
 # A date picker widget
-django-bootstrap3-datetimepicker
+git+https://github.com/inducer/django-bootstrap3-datetimepicker.git
