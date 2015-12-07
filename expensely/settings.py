@@ -54,16 +54,30 @@ INSTALLED_APPS = (
     "bootstrap3_datetime",
 )
 
-TEMPLATE_CONTEXT_PROCESSORS = (
-        TEMPLATE_CONTEXT_PROCESSORS
-        + ("expensely.util.add_root_url_to_template",)
-        )
-
 CRISPY_TEMPLATE_PACK = "bootstrap3"
 
-TEMPLATE_DIRS = (
-        join(BASE_DIR, "expensely", "templates"),
-        )
+TEMPLATES = [
+    {
+        "BACKEND": "django.template.backends.django.DjangoTemplates",
+        "APP_DIRS": True,
+        "DIRS": (
+            join(BASE_DIR, "expensely", "templates"),
+            ),
+        "OPTIONS": {
+            "context_processors": (
+                "django.contrib.auth.context_processors.auth",
+                "django.template.context_processors.debug",
+                "django.template.context_processors.i18n",
+                "django.template.context_processors.media",
+                "django.template.context_processors.static",
+                "django.template.context_processors.tz",
+                "django.contrib.messages.context_processors.messages",
+
+                "expensely.util.add_root_url_to_template",
+                ),
+            },
+        }
+    ]
 
 STATICFILES_DIRS = (
         join(BASE_DIR, "expensely", "static"),
@@ -76,6 +90,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
 )
 
 ROOT_URLCONF = 'expensely.urls'

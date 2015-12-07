@@ -3,7 +3,6 @@ from django.contrib.auth.models import User
 from django.utils.timezone import now
 
 
-
 class Currency(models.Model):
     symbol = models.CharField(max_length=10)
     name = models.CharField(max_length=200)
@@ -39,15 +38,16 @@ class AccountGroup(models.Model):
 
 
 class Account(models.Model):
-    group = models.ForeignKey(AccountGroup)
+    group = models.ForeignKey(AccountGroup, on_delete=models.CASCADE)
     symbol = models.CharField(max_length=20)
     name = models.CharField(max_length=200)
-    currency = models.ForeignKey(Currency)
+    currency = models.ForeignKey(Currency, on_delete=models.CASCADE)
 
     category = models.CharField(max_length=10,
             choices=ACCOUNT_CATEGORY_CHOICES)
 
-    guardian = models.ForeignKey(User, null=True, blank=True)
+    guardian = models.ForeignKey(
+            User, null=True, blank=True, on_delete=models.CASCADE)
 
     def __unicode__(self):
         return self.symbol + " -- " + self.name
@@ -83,9 +83,9 @@ class Entry(models.Model):
     description = models.CharField(max_length=200)
 
     create_date = models.DateTimeField(default=now)
-    creator = models.ForeignKey(User)
+    creator = models.ForeignKey(User, on_delete=models.CASCADE)
 
-    category = models.ForeignKey(EntryCategory)
+    category = models.ForeignKey(EntryCategory, on_delete=models.CASCADE)
 
     class Meta:
         verbose_name_plural = "entries"
@@ -98,9 +98,10 @@ class Entry(models.Model):
 
 
 class EntryComponent(models.Model):
-    entry = models.ForeignKey(Entry, related_name="components")
+    entry = models.ForeignKey(
+            Entry, related_name="components", on_delete=models.CASCADE)
     account = models.ForeignKey(Account,
-            related_name="entry_components")
+            related_name="entry_components", on_delete=models.CASCADE)
     amount = models.DecimalField(max_digits=19, decimal_places=2)
 
     class Meta:
@@ -112,16 +113,16 @@ class EntryComponent(models.Model):
 
 
 class EntryComment(models.Model):
-    entry = models.ForeignKey(Entry)
+    entry = models.ForeignKey(Entry, on_delete=models.CASCADE)
     create_date = models.DateTimeField(default=now)
-    creator = models.ForeignKey(User)
+    creator = models.ForeignKey(User, on_delete=models.CASCADE)
 
     comment = models.TextField()
 
 
 class EntryValidation(models.Model):
-    entry_component = models.ForeignKey(EntryComponent)
+    entry_component = models.ForeignKey(EntryComponent, on_delete=models.CASCADE)
     create_date = models.DateTimeField(default=now)
-    validator = models.ForeignKey(User)
+    validator = models.ForeignKey(User, on_delete=models.CASCADE)
 
     comments = models.TextField(null=True, blank=True)

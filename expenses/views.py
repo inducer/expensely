@@ -61,7 +61,7 @@ class AddSimpleExpenseForm(forms.ModelForm):
         self.helper.field_class = "col-lg-8"
 
         self.helper.add_input(
-                Submit("submit", "Submit", css_class="col-lg-offset-2"))
+                Submit("submit", "Submit"))
         super(AddSimpleExpenseForm, self).__init__(*args, **kwargs)
 
 
