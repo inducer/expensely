@@ -13,6 +13,8 @@ class Currency(models.Model):
     def __unicode__(self):
         return self.symbol + " -- " + self.name
 
+    __str__ = __unicode__
+
 
 class account_category:
     # negative = payment
@@ -36,6 +38,8 @@ class AccountGroup(models.Model):
     def __unicode__(self):
         return self.name
 
+    __str__ = __unicode__
+
 
 class Account(models.Model):
     group = models.ForeignKey(AccountGroup, on_delete=models.CASCADE)
@@ -51,6 +55,8 @@ class Account(models.Model):
 
     def __unicode__(self):
         return self.symbol + " -- " + self.name
+
+    __str__ = __unicode__
 
     class Meta:
         ordering = ["symbol"]
@@ -76,6 +82,8 @@ class EntryCategory(models.Model):
     def __unicode__(self):
         return self.name
 
+    __str__ = __unicode__
+
 
 class Entry(models.Model):
     valid_date = models.DateField(default=now)
@@ -96,6 +104,8 @@ class Entry(models.Model):
                 self.description,
                 self.valid_date)
 
+    __str__ = __unicode__
+
 
 class EntryComponent(models.Model):
     entry = models.ForeignKey(
@@ -110,6 +120,8 @@ class EntryComponent(models.Model):
     def __unicode__(self):
         return u"Component %.2f on %s:%s" % (self.amount,
                 self.account.symbol, self.account.name)
+
+    __str__ = __unicode__
 
 
 class EntryComment(models.Model):
