@@ -175,7 +175,7 @@ def view_account(request, id):
     def gen_tallies():
         tally = Decimal(0)
         for tx in (account.entry_components
-                .order_by("entry__valid_date").all()):
+                .order_by("-entry__valid_date").all()):
             tally += Decimal(tx.amount)
             tally = tally.quantize(TWO_PLACES)
 
