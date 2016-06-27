@@ -131,7 +131,7 @@ DYNSITE_ROOT = "/expensely/"
 STATIC_URL = DYNSITE_ROOT + "static/"
 STATIC_ROOT = join(BASE_DIR, "static")
 
-LOGIN_URL = DYNSITE_ROOT + "accounts/login"
+LOGIN_URL = DYNSITE_ROOT + "accounts/login/"
 LOGIN_REDIRECT_URL = DYNSITE_ROOT
 
 SESSION_COOKIE_NAME = 'expensely_sessionid'
