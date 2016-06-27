@@ -183,5 +183,5 @@ def view_account(request, id):
 
     return render(request, 'expenses/account-view.html', {
         "account": account,
-        "transactions": reversed(gen_tallies())
+        "transactions": reversed(list(gen_tallies()))
     })
