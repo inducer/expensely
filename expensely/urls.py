@@ -24,7 +24,8 @@ urlpatterns = [
 
     url(urlb+r'reporting/accounts/$', expenses.views.list_accounts,),
     url(urlb+r'reporting/account/(?P<id>[0-9]+)$',
-        expenses.views.view_account,),
+        expenses.views.view_account,
+        name="expensely-view_account"),
 
     url(urlb+r'accounts/login/$', expensely.views.login,),
     url(urlb+r'accounts/logout/$',

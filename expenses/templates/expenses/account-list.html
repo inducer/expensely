@@ -13,7 +13,7 @@
     {% for account in accounts %}
       <tr>
         <td>{{account.symbol}}</td>
-        <td><a href="{% url 'expenses.views.view_account' account.id%}">{{account.name}}</a></td>
+        <td><a href="{% url 'expensely-view_account' account.id %}">{{account.name}}</a></td>
         <td>{{account.group.name}}</td>
         <td>{{account.currency.symbol}}</td>
         <td class="amount">{{account.balance|floatformat:2}}</td>
