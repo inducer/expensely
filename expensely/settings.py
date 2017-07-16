@@ -124,7 +124,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
 
-DYNSITE_ROOT = "/expensely/"
+DYNSITE_ROOT = "/"
 
 STATIC_URL = DYNSITE_ROOT + "static/"
 STATIC_ROOT = join(BASE_DIR, "static")
