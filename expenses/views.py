@@ -24,7 +24,6 @@ class AddSimpleExpenseForm(forms.ModelForm):
         widgets = {
                 "valid_date": DateTimePicker(options={
                     "format": "YYYY-MM-DD",
-                    "pickTime": False,
                     })
                 }
 
