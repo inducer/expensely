@@ -18,7 +18,7 @@ urlb = r"^%s" % re.escape(settings.DYNSITE_ROOT.lstrip("/"))
 urlpatterns = [
     url(urlb+r'$', TemplateView.as_view(template_name='welcome.html')),
 
-    url(urlb+r'admin/', include(admin.site.urls)),
+    url(urlb+r'admin/', admin.site.urls),
 
     url(urlb+r'tracking/add-simple-expense/$', expenses.views.add_simple_expense,),
 

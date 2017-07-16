@@ -81,7 +81,7 @@ STATICFILES_DIRS = (
         join(BASE_DIR, "expensely", "static"),
         )
 
-MIDDLEWARE_CLASSES = (
+MIDDLEWARE = (
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
