@@ -29,6 +29,6 @@ urlpatterns = [
 
     url(urlb+r'accounts/login/$', expensely.views.login,),
     url(urlb+r'accounts/logout/$',
-        django.contrib.auth.views.logout,
+        django.contrib.auth.views.LogoutView.as_view(),
         {'template_name': 'base.html'}),
     ]
