@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.decorators import login_required
-from django.forms import DateTimeInput
+from django.forms import DateInput
 
 from decimal import Decimal
 
@@ -26,7 +26,7 @@ class AddSimpleExpenseForm(forms.ModelForm):
         fields = ['valid_date', 'description', 'category']
 
         widgets = {
-                'valid_date': DateTimeInput(attrs={'type': 'datetime-local'}),
+                'valid_date': DateInput(attrs={'type': 'date'}),
                 }
 
     funding_source = forms.ModelChoiceField(
