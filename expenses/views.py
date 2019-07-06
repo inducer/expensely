@@ -1,5 +1,8 @@
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.decorators import login_required
+from django.forms import DateTimeInput
+
+from decimal import Decimal
 
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit
@@ -13,7 +16,8 @@ from expenses.models import (  # noqa
         Account, Entry, EntryComponent, EntryCategory, EntryComment,
         account_category)
 
-from bootstrap3_datetime.widgets import DateTimePicker
+
+TWO_PLACES = Decimal(10) ** -2  # noqa: N806
 
 
 class AddSimpleExpenseForm(forms.ModelForm):
@@ -22,9 +26,7 @@ class AddSimpleExpenseForm(forms.ModelForm):
         fields = ['valid_date', 'description', 'category']
 
         widgets = {
-                "valid_date": DateTimePicker(options={
-                    "format": "YYYY-MM-DD",
-                    })
+                'valid_date': DateTimeInput(attrs={'type': 'datetime-local'}),
                 }
 
     funding_source = forms.ModelChoiceField(
@@ -84,7 +86,7 @@ def add_simple_expense(request):
 
             from decimal import Decimal
 
-            TWO_PLACES = Decimal(10) ** -2
+            TWO_PLACES = Decimal(10) ** -2  # noqa: N806
             frac1 = Decimal(form.cleaned_data["fraction_1"])
             frac2 = Decimal(form.cleaned_data["fraction_2"])
 
@@ -167,9 +169,6 @@ def list_accounts(request):
 @login_required
 def view_account(request, id):
     account = get_object_or_404(Account, pk=id)
-
-    from decimal import Decimal
-    TWO_PLACES = Decimal(10) ** -2
 
     def gen_tallies():
         tally = Decimal(0)

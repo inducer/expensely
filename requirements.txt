@@ -1,7 +1,7 @@
-django>=2.0.12,<2.1
+django>=2.2.3,<2.3
 
 # Automatically renders Django forms in a pretty, Bootstrap-compatible way.
-django-crispy-forms>=1.5.0
+django-crispy-forms>=1.7.2
 
 # Django timezone support
 pytz

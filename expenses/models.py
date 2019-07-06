@@ -2,6 +2,10 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.utils.timezone import now
 
+from decimal import Decimal
+
+TWO_PLACES = Decimal(10) ** -2
+
 
 class Currency(models.Model):
     symbol = models.CharField(max_length=10)
@@ -16,7 +20,7 @@ class Currency(models.Model):
     __str__ = __unicode__
 
 
-class account_category:
+class account_category:  # noqa: N801
     # negative = payment
     funding_source = "fund"
 
@@ -24,6 +28,7 @@ class account_category:
     expenses = "exp"
 
     other = "other"
+
 
 ACCOUNT_CATEGORY_CHOICES = (
     (account_category.funding_source, "Funding source"),
@@ -62,10 +67,6 @@ class Account(models.Model):
         ordering = ["symbol"]
 
     def balance(self):
-        from decimal import Decimal
-
-        TWO_PLACES = Decimal(10) ** -2
-
         result = Decimal(0)
         for ec in self.entry_components.all():
             result += ec.amount
