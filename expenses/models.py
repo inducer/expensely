@@ -126,7 +126,8 @@ class EntryComponent(models.Model):
 
 
 class EntryComment(models.Model):
-    entry = models.ForeignKey(Entry, on_delete=models.CASCADE)
+    entry = models.ForeignKey(Entry, related_name="comments",
+            on_delete=models.CASCADE)
     create_date = models.DateTimeField(default=now)
     creator = models.ForeignKey(User, on_delete=models.CASCADE)
 

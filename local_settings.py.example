@@ -16,3 +16,8 @@ DATABASES = {
 }
 
 DEBUG = False
+
+ROBOT_FROM_EMAIL = "Andreas Kloeckner <inform@tiker.net>"
+
+EMAIL_HOST = "localhost"
+EMAIL_PORT = 25

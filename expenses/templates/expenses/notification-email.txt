@@ -1,0 +1,25 @@
+Dear {{ component.account.guardian.first_name}},
+
+An entry on the account "{{ component.account.name }}" ({{ component.account.symbol }}) was recently {% if created %}created{% else %}updated{% endif %}.
+You are registered as the guardian of this account, which is why you are receiving this email.
+Please find the details of the entry below:
+
+Date: {{ entry.valid_date }}
+Description: {{ entry.description }}
+Creator: {{ entry.creator }}
+Category: {{ entry.category }}
+
+-----------------------------
+{% for comp in entry.components.all %}
+[{{ comp.account.symbol }}] {{ comp.account.name }}: {{ comp.amount}} {{ comp.account.currency.symbol }}
+{% endfor %}
+-----------------------------
+{% for comm in entry.comments.all %}
+A comment was left by {{ comm.creator }} at {{ comm.create_date }}:
+
+{{ comm.comment }}
+-----------------------------
+{% endfor %}
+
+Sincerely,
+Expensely
