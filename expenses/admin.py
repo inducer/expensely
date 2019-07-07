@@ -4,6 +4,10 @@ from expenses.models import (
         AccountGroup, Account,
         Entry, EntryComponent, EntryComment, EntryCategory)
 
+from decimal import Decimal
+
+TWO_PLACES = Decimal(10) ** -2
+
 
 admin.site.register(Currency)
 admin.site.register(AccountGroup)
@@ -11,7 +15,9 @@ admin.site.register(AccountGroup)
 
 class AccountAdmin(admin.ModelAdmin):
     list_filter = ('group', 'currency', 'category')
-    list_display = ('symbol', 'name', 'group', 'currency', 'category')
+    list_display = ('id', 'symbol', 'name', 'group',
+            'currency', 'category', 'guardian')
+    list_editable = ('symbol', 'name', 'group', 'currency', 'category', 'guardian')
 
 
 admin.site.register(Account, AccountAdmin)
@@ -44,10 +50,6 @@ class EntryAdmin(admin.ModelAdmin):
             EntryCommentInline]
 
     def entry_amount(self, entry):
-        from decimal import Decimal
-
-        TWO_PLACES = Decimal(10) ** -2
-
         amount = Decimal(0)
         for comp in entry.components.all():
             if comp.amount > 0:
@@ -59,5 +61,6 @@ class EntryAdmin(admin.ModelAdmin):
 
     list_filter = ('creator', 'category')
     search_fields = ('description',)
+
 
 admin.site.register(Entry, EntryAdmin)

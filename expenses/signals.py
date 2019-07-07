@@ -10,6 +10,9 @@ def entry_saved(sender, instance, created, raw, **kwargs):
         return
 
     for component in instance.components.all():
+        if component.account.guardian is None:
+            continue
+
         msg = render_to_string("expenses/notification-email.txt",
                 {
                     "created": created,
