@@ -82,6 +82,9 @@ def add_simple_expense(request):
                     category=form.cleaned_data["category"],
                     creator=request.user,
                     )
+
+            # This sends no email, because no components are created yet.
+            # The signal handler is called explicitly below.
             entry.save()
 
             from decimal import Decimal
@@ -146,6 +149,10 @@ def add_simple_expense(request):
                         comment=form.cleaned_data["comment"]
                         )
                 comment.save()
+
+            # Call signal handler to actually send notification email.
+            from expenses.signals import entry_saved
+            entry_saved(Entry, entry, created=True, raw=False)
 
             messages.add_message(request, messages.INFO, 'Expense added.')
             form = empty_form()
