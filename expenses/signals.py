@@ -22,11 +22,14 @@ def entry_saved(sender, instance, created, raw, **kwargs):
                 request=None, using=None)
 
         send_mail(
-            "[Expensely] %s in %s: %s"
+            "[Expensely] %s in %s: %s (%s %s)"
             % (
                 "Added" if created else "Updated",
                 component.account.symbol,
-                instance.description),
+                instance.description,
+                component.amount,
+                component.account.currency.symbol,
+                ),
             msg,
             settings.ROBOT_FROM_EMAIL,
             [component.account.guardian.email])
