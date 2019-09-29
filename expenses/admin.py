@@ -39,11 +39,18 @@ class EntryAdmin(admin.ModelAdmin):
     save_on_top = True
 
     list_display = (
+            'id',
             'description',
             'valid_date',
+            'create_date',
             'creator',
             'category',
             'entry_amount')
+
+    list_editable = (
+            'description',
+            'valid_date',
+            'category')
 
     inlines = [
             EntryComponentInline,
