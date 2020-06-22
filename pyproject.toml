@@ -24,6 +24,8 @@ pytz = ">=2020.1"
 # A date picker widget - https://github.com/tutorcruncher/django-bootstrap3-datetimepicker
 django-bootstrap3-datetimepicker-2 = "^2.8.2"
 
+psycopg2 = { version = "^2.8.5", optional = true }
+
 [tool.poetry.dev-dependencies]
 flake8 = "^3.8.3"
 pep8-naming = "^0.10.0"
