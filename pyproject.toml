@@ -1,0 +1,34 @@
+[build-system]
+requires = ["poetry>=0.12"]
+build-backend = "poetry.masonry.api"
+
+[tool.poetry]
+name = "expensely"
+version = "2020.1"
+description = "Expensely expense management"
+readme = "README.rst"
+repository = "https://github.com/inducer/expensely"
+authors = ["Andreas Kloeckner <inform@tiker.net>"]
+license = "MIT"
+packages = [
+    { include = "expenses" },
+    { include = "expensely" },
+]
+
+[tool.poetry.dependencies]
+python = "^3.6"
+django = "^3.0.7"
+# Automatically renders Django forms in a pretty, Bootstrap-compatible way.
+django-crispy-forms = ">=1.7.2"
+pytz = ">=2020.1"
+# A date picker widget - https://github.com/tutorcruncher/django-bootstrap3-datetimepicker
+django-bootstrap3-datetimepicker-2 = "^2.8.2"
+
+[tool.poetry.dev-dependencies]
+flake8 = "^3.8.3"
+pep8-naming = "^0.10.0"
+
+# enable with "-E postgres"
+[tool.poetry.extras]
+postgres = ["psycopg2"]
+
