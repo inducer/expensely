@@ -12,9 +12,8 @@ from django.db import transaction
 
 import django.forms as forms
 
-from expenses.models import (  # noqa
-        Account, Entry, EntryComponent, EntryCategory, EntryComment,
-        account_category)
+from expenses.models import (
+        Account, Entry, EntryComponent, EntryComment, account_category)
 
 
 TWO_PLACES = Decimal(10) ** -2  # noqa: N806
@@ -23,10 +22,10 @@ TWO_PLACES = Decimal(10) ** -2  # noqa: N806
 class AddSimpleExpenseForm(forms.ModelForm):
     class Meta:
         model = Entry
-        fields = ['valid_date', 'description', 'category']
+        fields = ["valid_date", "description", "category"]
 
         widgets = {
-                'valid_date': DateInput(attrs={'type': 'date'}),
+                "valid_date": DateInput(attrs={"type": "date"}),
                 }
 
     funding_source = forms.ModelChoiceField(
@@ -154,12 +153,12 @@ def add_simple_expense(request):
             from expenses.signals import entry_saved
             entry_saved(Entry, entry, created=True, raw=False)
 
-            messages.add_message(request, messages.INFO, 'Expense added.')
+            messages.add_message(request, messages.INFO, "Expense added.")
             form = empty_form()
     else:
         form = empty_form()  # An unbound form
 
-    return render(request, 'generic-form.html', {
+    return render(request, "generic-form.html", {
         "form": form,
         "form_description": "Add Simple Expense",
     })
@@ -167,7 +166,7 @@ def add_simple_expense(request):
 
 @login_required
 def list_accounts(request):
-    return render(request, 'expenses/account-list.html', {
+    return render(request, "expenses/account-list.html", {
         "accounts": Account.objects.all()
         .order_by("group__name", "symbol"),
     })
@@ -186,7 +185,7 @@ def view_account(request, id):
 
             yield (tx, tally)
 
-    return render(request, 'expenses/account-view.html', {
+    return render(request, "expenses/account-view.html", {
         "account": account,
         "transactions": reversed(list(gen_tallies()))
     })

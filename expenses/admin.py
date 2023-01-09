@@ -1,8 +1,13 @@
 from django.contrib import admin
 from expenses.models import (
-        Currency,
-        AccountGroup, Account,
-        Entry, EntryComponent, EntryComment, EntryCategory)
+    Currency,
+    AccountGroup,
+    Account,
+    Entry,
+    EntryComponent,
+    EntryComment,
+    EntryCategory,
+)
 
 from decimal import Decimal
 
@@ -14,10 +19,10 @@ admin.site.register(AccountGroup)
 
 
 class AccountAdmin(admin.ModelAdmin):
-    list_filter = ('group', 'currency', 'category')
-    list_display = ('id', 'symbol', 'name', 'group',
-            'currency', 'category', 'guardian')
-    list_editable = ('symbol', 'name', 'group', 'currency', 'category', 'guardian')
+    list_filter = ("group", "currency", "category")
+    list_display = (
+            "id", "symbol", "name", "group", "currency", "category", "guardian")
+    list_editable = ("symbol", "name", "group", "currency", "category", "guardian")
 
 
 admin.site.register(Account, AccountAdmin)
@@ -39,22 +44,18 @@ class EntryAdmin(admin.ModelAdmin):
     save_on_top = True
 
     list_display = (
-            'id',
-            'description',
-            'valid_date',
-            'create_date',
-            'creator',
-            'category',
-            'entry_amount')
+        "id",
+        "description",
+        "valid_date",
+        "create_date",
+        "creator",
+        "category",
+        "entry_amount",
+    )
 
-    list_editable = (
-            'description',
-            'valid_date',
-            'category')
+    list_editable = ("description", "valid_date", "category")
 
-    inlines = [
-            EntryComponentInline,
-            EntryCommentInline]
+    inlines = [EntryComponentInline, EntryCommentInline]
 
     def entry_amount(self, entry):
         amount = Decimal(0)
@@ -66,8 +67,8 @@ class EntryAdmin(admin.ModelAdmin):
 
     date_hierarchy = "valid_date"
 
-    list_filter = ('creator', 'category')
-    search_fields = ('description',)
+    list_filter = ("creator", "category")
+    search_fields = ("description",)
 
 
 admin.site.register(Entry, EntryAdmin)

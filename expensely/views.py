@@ -16,7 +16,7 @@ class AuthenticationForm(AuthenticationFormBase):
                 Submit("submit", "Sign in"))
         super(AuthenticationForm, self).__init__(*args, **kwargs)
 
-        self.fields['username'].widget.attrs["autofocus"] = "autofocus"
+        self.fields["username"].widget.attrs["autofocus"] = "autofocus"
 
 
 def login(request):

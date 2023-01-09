@@ -12,6 +12,7 @@ from os.path import join
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
+
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 local_settings = {}
@@ -22,13 +23,13 @@ except IOError:
     pass
 else:
     exec(compile(local_settings_contents, "local_settings.py", "exec"),
-            local_settings)
+         local_settings)
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.6/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '<OVERRIDDEN BY local_settings below>'
+SECRET_KEY = "<OVERRIDDEN BY local_settings below>"
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -41,14 +42,14 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = (
-    'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
-    'expenses',
-    'crispy_forms',
+    "django.contrib.admin",
+    "django.contrib.auth",
+    "django.contrib.contenttypes",
+    "django.contrib.sessions",
+    "django.contrib.messages",
+    "django.contrib.staticfiles",
+    "expenses",
+    "crispy_forms",
 )
 
 CRISPY_TEMPLATE_PACK = "bootstrap3"
@@ -57,9 +58,7 @@ TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
         "APP_DIRS": True,
-        "DIRS": (
-            join(BASE_DIR, "expensely", "templates"),
-            ),
+        "DIRS": (join(BASE_DIR, "expensely", "templates"),),
         "OPTIONS": {
             "context_processors": (
                 "django.contrib.auth.context_processors.auth",
@@ -71,27 +70,25 @@ TEMPLATES = [
                 "django.contrib.messages.context_processors.messages",
                 "expensely.util.add_root_url_to_template",
                 "django.template.context_processors.request",
-                ),
-            },
-        }
-    ]
+            ),
+        },
+    }
+]
 
-STATICFILES_DIRS = (
-        join(BASE_DIR, "expensely", "static"),
-        )
+STATICFILES_DIRS = (join(BASE_DIR, "expensely", "static"),)
 
 MIDDLEWARE = (
-    'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    "django.contrib.sessions.middleware.SessionMiddleware",
+    "django.middleware.common.CommonMiddleware",
+    "django.middleware.csrf.CsrfViewMiddleware",
+    "django.contrib.auth.middleware.AuthenticationMiddleware",
+    "django.contrib.messages.middleware.MessageMiddleware",
+    "django.middleware.clickjacking.XFrameOptionsMiddleware",
 )
 
-ROOT_URLCONF = 'expensely.urls'
+ROOT_URLCONF = "expensely.urls"
 
-WSGI_APPLICATION = 'expensely.wsgi.application'
+WSGI_APPLICATION = "expensely.wsgi.application"
 
 
 # Database
@@ -99,20 +96,18 @@ WSGI_APPLICATION = 'expensely.wsgi.application'
 
 # default, likely overriden by local_settings below
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    "default": {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": os.path.join(BASE_DIR, "db.sqlite3"),
     }
 }
-
-DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.6/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = "en-us"
 
-TIME_ZONE = 'America/Chicago'
+TIME_ZONE = "America/Chicago"
 
 USE_I18N = True
 
@@ -132,8 +127,8 @@ STATIC_ROOT = join(BASE_DIR, "static")
 LOGIN_URL = DYNSITE_ROOT + "accounts/login/"
 LOGIN_REDIRECT_URL = DYNSITE_ROOT
 
-SESSION_COOKIE_NAME = 'expensely_sessionid'
-SESSION_COOKIE_AGE = 12096000 # 20 weeks
+SESSION_COOKIE_NAME = "expensely_sessionid"
+SESSION_COOKIE_AGE = 12096000  # 20 weeks
 
 for name, val in local_settings.items():
     if not name.startswith("_"):
