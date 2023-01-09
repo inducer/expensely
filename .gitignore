@@ -6,3 +6,4 @@ local_settings.py
 *.py[co]
 .sw[opn]
 *.egg-info
+poetry.toml
