@@ -16,8 +16,8 @@ packages = [
 ]
 
 [tool.poetry.dependencies]
-python = "^3.6"
-django = "^3.0.7"
+python = "^3.8"
+django = "^4.0"
 # Automatically renders Django forms in a pretty, Bootstrap-compatible way.
 django-crispy-forms = ">=1.7.2"
 pytz = ">=2020.1"
