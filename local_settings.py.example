@@ -21,3 +21,6 @@ ROBOT_FROM_EMAIL = "Andreas Kloeckner <inform@tiker.net>"
 
 EMAIL_HOST = "localhost"
 EMAIL_PORT = 25
+
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
