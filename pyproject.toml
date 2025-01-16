@@ -16,10 +16,11 @@ packages = [
 ]
 
 [tool.poetry.dependencies]
-python = "^3.8.1"
-django = "^4.2"
+python = "^3.10"
+django = "^5.1"
 # Automatically renders Django forms in a pretty, Bootstrap-compatible way.
-django-crispy-forms = ">=1.7.2"
+django-crispy-forms = ">=2.3"
+crispy-bootstrap3 = "^2024.1"
 pytz = ">=2020.1"
 # A date picker widget - https://github.com/tutorcruncher/django-bootstrap3-datetimepicker
 django-bootstrap3-datetimepicker-2 = "^2.8.2"

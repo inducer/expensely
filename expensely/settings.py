@@ -50,6 +50,7 @@ INSTALLED_APPS = (
     "django.contrib.staticfiles",
     "expenses",
     "crispy_forms",
+    "crispy_bootstrap3",
 )
 
 CRISPY_TEMPLATE_PACK = "bootstrap3"
