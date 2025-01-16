@@ -1,14 +1,14 @@
-from django.urls import re_path
-from django.conf import settings
-import django.contrib.auth.views
-import expenses.views
-import expensely.views
-
-from django.views.generic import TemplateView
-
 import re
 
+import django.contrib.auth.views
+from django.conf import settings
 from django.contrib import admin
+from django.urls import re_path
+from django.views.generic import TemplateView
+
+import expensely.views
+import expenses.views
+
 
 admin.autodiscover()
 

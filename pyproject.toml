@@ -27,10 +27,61 @@ django-bootstrap3-datetimepicker-2 = "^2.8.2"
 
 psycopg2 = { version = "^2.8.5", optional = true }
 
-[tool.poetry.dev-dependencies]
-flake8 = "^6.0"
-pep8-naming = "^0.10.0"
+[tool.poetry.group.dev.dependencies]
+ruff = "^0.9"
 
 # enable with "-E postgres"
 [tool.poetry.extras]
 postgres = ["psycopg2"]
+
+[tool.ruff]
+preview = true
+target-version = "py310"
+exclude = ["contrib/jupyterlite"]
+
+[tool.ruff.lint]
+extend-select = [
+    "B",   # flake8-bugbear
+    "C",   # flake8-comprehensions
+    "E",   # pycodestyle
+    "F",   # pyflakes
+    "I",   # flake8-isort
+    "N",   # pep8-naming
+    "NPY", # numpy
+    "Q",   # flake8-quotes
+    "W",   # pycodestyle
+    "RUF",
+    "UP",
+    # "DJ",
+]
+
+extend-ignore = [
+    "C90",  # McCabe complexity
+    "E221", # multiple spaces before operator
+    "E226", # missing whitespace around arithmetic operator
+    "E241", # multiple spaces after comma
+    "E242", # tab after comma
+    "E402", # module level import not at the top of file
+    "N818", # error suffix in exception names
+
+    # TODO
+    "B904", # raise in except needs from
+    "B028", # stacklevel
+    "RUF012", # mutable class atttributes
+    "UP031", # %-format
+]
+allowed-confusables = ["‐", "–"]
+
+[tool.ruff.lint.flake8-quotes]
+docstring-quotes = "double"
+inline-quotes = "double"
+multiline-quotes = "double"
+
+[tool.ruff.lint.isort]
+combine-as-imports = true
+lines-after-imports = 2
+
+[tool.ruff.lint.per-file-ignores]
+# mostly generated
+"*/migrations/*.py" = ["Q", "E501", "RUF012", "F401", "I002", "UP"]
+

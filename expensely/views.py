@@ -1,8 +1,6 @@
-from django.contrib.auth.forms import \
-        AuthenticationForm as AuthenticationFormBase
-
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit
+from django.contrib.auth.forms import AuthenticationForm as AuthenticationFormBase
 
 
 class AuthenticationForm(AuthenticationFormBase):
@@ -14,7 +12,7 @@ class AuthenticationForm(AuthenticationFormBase):
 
         self.helper.add_input(
                 Submit("submit", "Sign in"))
-        super(AuthenticationForm, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
 
         self.fields["username"].widget.attrs["autofocus"] = "autofocus"
 

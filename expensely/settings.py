@@ -8,10 +8,10 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.6/ref/settings/
 """
 
-from os.path import join
-
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
+from os.path import join
+
 
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
@@ -19,7 +19,7 @@ local_settings = {}
 try:
     with open(join(BASE_DIR, "local_settings.py")) as inf:
         local_settings_contents = inf.read()
-except IOError:
+except OSError:
     pass
 else:
     exec(compile(local_settings_contents, "local_settings.py", "exec"),

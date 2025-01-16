@@ -1,22 +1,24 @@
-from django.shortcuts import render, get_object_or_404
-from django.contrib.auth.decorators import login_required
-from django.forms import DateInput
-
 from decimal import Decimal
 
+import django.forms as forms
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit
-
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 from django.db import transaction
-
-import django.forms as forms
+from django.forms import DateInput
+from django.shortcuts import get_object_or_404, render
 
 from expenses.models import (
-        Account, Entry, EntryComponent, EntryComment, account_category)
+    Account,
+    Entry,
+    EntryComment,
+    EntryComponent,
+    account_category,
+)
 
 
-TWO_PLACES = Decimal(10) ** -2  # noqa: N806
+TWO_PLACES = Decimal(10) ** -2
 
 
 class AddSimpleExpenseForm(forms.ModelForm):
@@ -62,7 +64,7 @@ class AddSimpleExpenseForm(forms.ModelForm):
 
         self.helper.add_input(
                 Submit("submit", "Submit"))
-        super(AddSimpleExpenseForm, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
 
 
 @login_required

@@ -1,8 +1,9 @@
-from django.db import models
+from decimal import Decimal
+
 from django.contrib.auth.models import User
+from django.db import models
 from django.utils.timezone import now
 
-from decimal import Decimal
 
 TWO_PLACES = Decimal(10) ** -2
 
@@ -119,7 +120,7 @@ class EntryComponent(models.Model):
         ordering = ["amount"]
 
     def __unicode__(self):
-        return u"Component %.2f on %s:%s" % (self.amount,
+        return "Component %.2f on %s:%s" % (self.amount,
                 self.account.symbol, self.account.name)
 
     __str__ = __unicode__

@@ -1,15 +1,17 @@
+from decimal import Decimal
+
 from django.contrib import admin
+
 from expenses.models import (
-    Currency,
-    AccountGroup,
     Account,
+    AccountGroup,
+    Currency,
     Entry,
-    EntryComponent,
-    EntryComment,
     EntryCategory,
+    EntryComment,
+    EntryComponent,
 )
 
-from decimal import Decimal
 
 TWO_PLACES = Decimal(10) ** -2
 
