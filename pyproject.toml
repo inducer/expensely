@@ -1,43 +1,44 @@
 [build-system]
-requires = ["poetry>=0.12"]
-build-backend = "poetry.masonry.api"
+requires = ["hatchling"]
+build-backend = "hatchling.build"
 
-[tool.poetry]
+
+[project]
 name = "expensely"
 version = "2020.1"
 description = "Expensely expense management"
 readme = "README.rst"
 repository = "https://github.com/inducer/expensely"
-authors = ["Andreas Kloeckner <inform@tiker.net>"]
 license = "MIT"
+authors = [{ name = "Andreas Kloeckner", email = "inform@tiker.net" }]
 packages = [
     { include = "expenses" },
     { include = "expensely" },
 ]
+requires-python = ">=3.10"
 
-[tool.poetry.dependencies]
-python = "^3.10"
-django = "^5.1"
-# Automatically renders Django forms in a pretty, Bootstrap-compatible way.
-django-crispy-forms = ">=2.3"
-crispy-bootstrap3 = "^2024.1"
-pytz = ">=2020.1"
-# A date picker widget - https://github.com/tutorcruncher/django-bootstrap3-datetimepicker
-django-bootstrap3-datetimepicker-2 = "^2.8.2"
+dependencies = [
+    "django>=5.1",
+    # Automatically renders Django forms in a pretty, Bootstrap-compatible way.
+    "django-crispy-forms>=2.3",
+    "crispy-bootstrap3>=2024.1",
+    "pytz>=2020.1",
+    # A date picker widget - https://github.com/tutorcruncher/django-bootstrap3-datetimepicker
+    "django-bootstrap3-datetimepicker-2>=2.8.2",
+]
 
-psycopg2 = { version = "^2.8.5", optional = true }
-
-[tool.poetry.group.dev.dependencies]
-ruff = "^0.9"
-
-# enable with "-E postgres"
-[tool.poetry.extras]
-postgres = ["psycopg2"]
+[dependency-groups]
+dev = [
+    "ruff>=0.9",
+]
+[project.optional-dependencies]
+postgres = [
+    "psycopg2>=2.9.10,<3"
+]
 
 [tool.ruff]
 preview = true
 target-version = "py310"
-exclude = ["contrib/jupyterlite"]
 
 [tool.ruff.lint]
 extend-select = [
