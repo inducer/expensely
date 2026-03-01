@@ -1,8 +1,8 @@
 from decimal import Decimal
 
-import django.forms as forms
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit
+from django import forms
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.db import transaction
@@ -30,10 +30,6 @@ class AddSimpleExpenseForm(forms.ModelForm):
                 "valid_date": DateInput(attrs={"type": "date"}),
                 }
 
-    funding_source = forms.ModelChoiceField(
-            queryset=Account.objects.filter(
-                category=account_category.funding_source),
-            required=True)
     amount = forms.DecimalField(max_digits=19, decimal_places=2, required=True)
     discount_in_percent = forms.DecimalField(max_digits=19, decimal_places=2,
             required=False)
@@ -71,8 +67,7 @@ class AddSimpleExpenseForm(forms.ModelForm):
 @transaction.atomic
 def add_simple_expense(request):
     def empty_form():
-        frm = AddSimpleExpenseForm()
-        return frm
+        return AddSimpleExpenseForm()
 
     if request.method == "POST":
         form = AddSimpleExpenseForm(request.POST, request.FILES)

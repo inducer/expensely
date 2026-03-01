@@ -22,7 +22,7 @@ try:
 except OSError:
     pass
 else:
-    exec(compile(local_settings_contents, "local_settings.py", "exec"),
+    exec(compile(local_settings_contents, "local_settings.py", "exec"),  # noqa: S102
          local_settings)
 
 # Quick-start development settings - unsuitable for production
