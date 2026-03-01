@@ -89,6 +89,18 @@ wheels = [
 ]
 
 [[package]]
+name = "django-types"
+version = "0.23.0"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "types-psycopg2" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/73/9a/5c652bbc8694489782c415d7d6fa0782219e401aba25f4d1df2b95c3a34c/django_types-0.23.0.tar.gz", hash = "sha256:f97fb746166fb15a5f40e470a1fd7a58226349aac9e0a9cb8ae81deb14d94fd0", size = 208369, upload-time = "2026-02-04T00:36:23.33Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/73/de/471afcd92022642544f7866dd5620bc85f04e4312d5e29d7f2960f31f010/django_types-0.23.0-py3-none-any.whl", hash = "sha256:0727b13ae810c4b1f14eeac9872834ac928c99dc76584ea7c23afc4461e049dd", size = 379397, upload-time = "2026-02-04T00:36:21.783Z" },
+]
+
+[[package]]
 name = "expensely"
 version = "2020.1"
 source = { editable = "." }
@@ -108,6 +120,7 @@ postgres = [
 
 [package.dev-dependencies]
 dev = [
+    { name = "django-types" },
     { name = "ruff" },
 ]
 
@@ -123,7 +136,10 @@ requires-dist = [
 provides-extras = ["postgres"]
 
 [package.metadata.requires-dev]
-dev = [{ name = "ruff", specifier = ">=0.9" }]
+dev = [
+    { name = "django-types" },
+    { name = "ruff", specifier = ">=0.9" },
+]
 
 [[package]]
 name = "psycopg2"
@@ -179,6 +195,15 @@ source = { registry = "https://pypi.org/simple" }
 sdist = { url = "https://files.pythonhosted.org/packages/90/76/437d71068094df0726366574cf3432a4ed754217b436eb7429415cf2d480/sqlparse-0.5.5.tar.gz", hash = "sha256:e20d4a9b0b8585fdf63b10d30066c7c94c5d7a7ec47c889a2d83a3caa93ff28e", size = 120815, upload-time = "2025-12-19T07:17:45.073Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/49/4b/359f28a903c13438ef59ebeee215fb25da53066db67b305c125f1c6d2a25/sqlparse-0.5.5-py3-none-any.whl", hash = "sha256:12a08b3bf3eec877c519589833aed092e2444e68240a3577e8e26148acc7b1ba", size = 46138, upload-time = "2025-12-19T07:17:46.573Z" },
+]
+
+[[package]]
+name = "types-psycopg2"
+version = "2.9.21.20260223"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/55/1f/4daff0ce5e8e191844e65aaa793ed1b9cb40027dc2700906ecf2b6bcc0ed/types_psycopg2-2.9.21.20260223.tar.gz", hash = "sha256:78ed70de2e56bc6b5c26c8c1da8e9af54e49fdc3c94d1504609f3519e2b84f02", size = 27090, upload-time = "2026-02-23T04:11:18.177Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/8d/e7/c566df58410bc0728348b514e718f0b38fa0d248b5c10599a11494ba25d2/types_psycopg2-2.9.21.20260223-py3-none-any.whl", hash = "sha256:c6228ade72d813b0624f4c03feeb89471950ac27cd0506b5debed6f053086bc8", size = 24919, upload-time = "2026-02-23T04:11:17.214Z" },
 ]
 
 [[package]]
