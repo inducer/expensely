@@ -1,0 +1,22 @@
+[Unit]
+Description=Expensely via Granian
+After=network.target
+
+[Service]
+#Type=forking
+User=www-data
+Group=www-data
+
+WorkingDirectory=/home/expensely/expensely
+
+Environment="GRANIAN_HOST=127.0.0.1"
+Environment="GRANIAN_PORT=8123"
+Environment="GRANIAN_WORKERS=1"
+Environment="GRANIAN_WORKERS_MAX_RSS=500"
+Environment="GRANIAN_INTERFACE=wsgi"
+Environment="GRANIAN_RESPAWN_FAILED_WORKERS=true"
+
+ExecStart=/home/expensely/expensely/.venv/bin/granian expensely.wsgi:application
+
+[Install]
+WantedBy=multi-user.target
