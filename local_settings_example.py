@@ -4,6 +4,8 @@ ALLOWED_HOSTS = [
         "expensely.example.com",
         ]
 
+CSRF_TRUSTED_ORIGINS = ['https://expenselyexample.com']
+
 DATABASES = {
     'default': {
         'ENGINE':'django.db.backends.postgresql_psycopg2',
