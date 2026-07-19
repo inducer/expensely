@@ -8,4 +8,4 @@ class ExpensesConfig(AppConfig):
     default_auto_field = "django.db.models.AutoField"
 
     def ready(self):
-        import expenses.signals  # noqa: F401
+        import expenses.signals  # ruff:ignore[unused-import]

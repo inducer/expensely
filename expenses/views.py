@@ -85,7 +85,7 @@ def add_simple_expense(request):
 
             from decimal import Decimal
 
-            TWO_PLACES = Decimal(10) ** -2  # noqa: N806
+            TWO_PLACES = Decimal(10) ** -2  # ruff:ignore[non-lowercase-variable-in-function]
             frac1 = Decimal(form.cleaned_data["fraction_1"])
             frac2 = Decimal(form.cleaned_data["fraction_2"])
 

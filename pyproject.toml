@@ -60,19 +60,19 @@ extend-select = [
 
 extend-ignore = [
     "C90",  # McCabe complexity
-    "E221", # multiple spaces before operator
-    "E226", # missing whitespace around arithmetic operator
-    "E241", # multiple spaces after comma
-    "E242", # tab after comma
-    "E402", # module level import not at the top of file
-    "N818", # error suffix in exception names
-    "RUF067", # no code in __init__ *shrug*
+    "multiple-spaces-before-operator",
+    "missing-whitespace-around-arithmetic-operator",
+    "multiple-spaces-after-comma",
+    "tab-after-comma",
+    "module-import-not-at-top-of-file",
+    "error-suffix-on-exception-name",
+    "non-empty-init-module",
 
     # TODO
-    "B904", # raise in except needs from
-    "B028", # stacklevel
-    "RUF012", # mutable class atttributes
-    "UP031", # %-format
+    "raise-without-from-inside-except",
+    "no-explicit-stacklevel",
+    "mutable-class-default",
+    "printf-string-formatting",
 ]
 allowed-confusables = ["‐", "–"]
 
@@ -87,4 +87,4 @@ lines-after-imports = 2
 
 [tool.ruff.lint.per-file-ignores]
 # mostly generated
-"*/migrations/*.py" = ["Q", "E501", "RUF012", "F401", "I002", "UP"]
+"*/migrations/*.py" = ["Q", "line-too-long", "mutable-class-default", "unused-import", "missing-required-import", "UP"]
