@@ -21,7 +21,7 @@ class Currency(models.Model):
     __str__ = __unicode__
 
 
-class account_category:  # noqa: N801
+class account_category:  # ruff:ignore[invalid-class-name]
     # negative = payment
     funding_source = "fund"
 
