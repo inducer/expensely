@@ -22,7 +22,7 @@ try:
 except OSError:
     pass
 else:
-    exec(compile(local_settings_contents, "local_settings.py", "exec"),  # ruff:ignore[exec-builtin]
+    exec(compile(local_settings_contents, "local_settings.py", "exec"),
          local_settings)
 
 # Quick-start development settings - unsuitable for production

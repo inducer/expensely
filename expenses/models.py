@@ -15,10 +15,8 @@ class Currency(models.Model):
     class Meta:
         verbose_name_plural = "currencies"
 
-    def __unicode__(self):
+    def __str__(self):
         return self.symbol + " -- " + self.name
-
-    __str__ = __unicode__
 
 
 class account_category:  # ruff:ignore[invalid-class-name]
@@ -41,10 +39,8 @@ ACCOUNT_CATEGORY_CHOICES = (
 class AccountGroup(models.Model):
     name = models.CharField(max_length=200)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
-
-    __str__ = __unicode__
 
 
 class Account(models.Model):
@@ -59,13 +55,11 @@ class Account(models.Model):
     guardian = models.ForeignKey(
             User, null=True, blank=True, on_delete=models.CASCADE)
 
-    def __unicode__(self):
-        return self.symbol + " -- " + self.name
-
-    __str__ = __unicode__
-
     class Meta:
         ordering = ["symbol"]
+
+    def __str__(self):
+        return self.symbol + " -- " + self.name
 
     def balance(self):
         result = Decimal(0)
@@ -81,10 +75,8 @@ class EntryCategory(models.Model):
     class Meta:
         verbose_name_plural = "entry categories"
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
-
-    __str__ = __unicode__
 
 
 class Entry(models.Model):
@@ -101,12 +93,10 @@ class Entry(models.Model):
         verbose_name_plural = "entries"
         ordering = ["valid_date", "description"]
 
-    def __unicode__(self):
+    def __str__(self):
         return "%s (%s)" % (
                 self.description,
                 self.valid_date)
-
-    __str__ = __unicode__
 
 
 class EntryComponent(models.Model):
@@ -119,11 +109,9 @@ class EntryComponent(models.Model):
     class Meta:
         ordering = ["amount"]
 
-    def __unicode__(self):
+    def __str__(self):
         return "Component %.2f on %s:%s" % (self.amount,
                 self.account.symbol, self.account.name)
-
-    __str__ = __unicode__
 
 
 class EntryComment(models.Model):
@@ -134,6 +122,9 @@ class EntryComment(models.Model):
 
     comment = models.TextField()
 
+    def __str__(self):
+        return "Comment on %s by %s" % (self.entry, self.creator)
+
 
 class EntryValidation(models.Model):
     entry_component = models.ForeignKey(EntryComponent, on_delete=models.CASCADE)
@@ -141,3 +132,7 @@ class EntryValidation(models.Model):
     validator = models.ForeignKey(User, on_delete=models.CASCADE)
 
     comments = models.TextField(null=True, blank=True)
+
+    def __str__(self):
+        return "Validation of %s by %s" % (
+                self.entry_component, self.validator)
